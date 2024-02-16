@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define TAMANHO_VETOR 100
-#define RANGE_NUMEROS 200
+#define TAMANHO_VETOR 30000
+#define RANGE_NUMEROS 50000
 
 void bubbleSort(int vetor[]) {
     int i, j;
@@ -80,7 +80,7 @@ int main() {
     printf("\n");
 
     do {
-        printf("Digite qual o numero que quer procurar: ");
+        printf("Digite qual o numero quer procurar: ");
         scanf("%d", &valor);
 
         inicio = clock();
@@ -92,7 +92,7 @@ int main() {
             printf("\nNumero nao encontrado\n");
         }
         else {
-            printf("\n%d\n", posicao);
+            printf("\nPosicao: %d\n", posicao);
         }
         printf("Tempo de execução: %f segundos\n\n", tempo);
 
@@ -106,7 +106,7 @@ int main() {
             printf("Numero nao encontrado\n");
         }
         else {
-            printf("%d\n", posicao);
+            printf("\nPosicao: %d\n", posicao);
         }
         printf("Tempo de execução: %f segundos\n\n", tempo);
 
