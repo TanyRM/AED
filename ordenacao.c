@@ -32,9 +32,8 @@ void selectionSort(int vetor[]){
         aux = vetor[i];
         vetor[i] = vetor[min];
         vetor[min] = aux;
+        }
     }
-}
-
 }
 
 void insertionSort(int vetor[]){
@@ -43,7 +42,7 @@ void insertionSort(int vetor[]){
     while (j < TAMANHO) {
         aux = vetor[j];
         i = j - 1;
-        
+
         while ((i >= 0) && (vetor[i] > aux)) {
             vetor[i + 1] = vetor[i];
             i = i - 1;
