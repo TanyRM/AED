@@ -53,8 +53,106 @@ void insertionSort(int vetor[]){
     }
 }
 
+void merge(int vetor[], int inicio, int meio, int fim) {
+    int com1 = inicio, com2 = meio+1, comAux = 0, vetAux[fim-inicio+1];
+    while(com1<=meio && com2<=fim) {
+        if(vetor[com1] <= vetor[com2]) {
+            vetAux[comAux] = vetor[com1];
+            com1++;
+        } 
+        else {
+            vetAux[comAux] = vetor[com2];
+            com2++; 
+        }
+    comAux++; 
+    }
+    while(com1<=meio) { //Caso ainda haja elementos na primeira metade
+        vetAux[comAux] = vetor[com1];
+        comAux++;com1++; 
+        }
+    while(com2<=fim) { //Caso ainda haja elementos na segunda metade
+        vetAux[comAux] = vetor[com2];
+        comAux++;com2++; 
+        }
+    for(comAux=inicio;comAux<=fim;comAux++) { 
+        vetor[comAux] = vetAux[comAux-inicio];
+    }
+}
+
+void mergeSort(int vetor[], int inicio, int fim) {
+    if (inicio < fim) {
+        int meio = (inicio+fim)/2;
+        mergeSort(vetor, inicio, meio);
+        mergeSort(vetor, meio+1, fim);
+        merge(vetor, inicio, meio, fim);
+    }
+}
+
+void trocar(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int particionar(int vetor[], int inicio, int fim) {
+    int pivo = vetor[fim];
+    int i = inicio - 1;
+    int j;
+
+    for (j = inicio; j <= fim - 1; j++) {
+        if (vetor[j] < pivo) {
+            i++;
+            trocar(&vetor[i], &vetor[j]);
+        }
+    }
+    trocar(&vetor[i + 1], &vetor[fim]);
+    return (i + 1);
+}
+
+void quickSort(int vetor[], int inicio, int fim) {
+    if (inicio < fim) {
+        int indiceParticao = particionar(vetor, inicio, fim);
+
+        quickSort(vetor, inicio, indiceParticao - 1);
+        quickSort(vetor, indiceParticao + 1, fim);
+    }
+}
+
 int main(){
     int vetor[TAMANHO] = {7,3,9,5,4,8,1,2,6,0};
+    int i;
+
+    for(i = 0; i < TAMANHO; i++) {
+        printf("%d ", vetor[i]);
+    }
+    printf("\n\n");
+
+    int op;
+    printf("Selecione uma opção:\n 1- Bubble\n 2- Selection\n 3- Insertion\n 4- Merge\n 5- Quick\n");
+    scanf("%d", &op);
+    switch (op) {
+    case 1:
+        bubbleSort(vetor);
+        break;
+    case 2:
+        selectionSort(vetor);
+        break;
+    case 3:
+        insertionSort(vetor);
+        break;
+    case 4:
+        mergeSort(vetor, 0, TAMANHO);
+        break;
+    case 5:
+        quickSort(vetor, 0, TAMANHO-1);
+        break;
+    default:
+        break;
+    }
+
+    for(i = 0; i < TAMANHO; i++) {
+        printf("%d ", vetor[i]);
+    }
 
    return 0; 
 }
