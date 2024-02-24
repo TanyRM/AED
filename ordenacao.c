@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define TAMANHO 10
+#define RANGE_NUMEROS 100
 
 void bubbleSort(int vetor[]){
     int i, fim, aux;
@@ -118,17 +120,97 @@ void quickSort(int vetor[], int inicio, int fim) {
     }
 }
 
+void countingSort(int vetor[], int n, int k) {
+    int i, j;
+    int c[k + 1], b[n];
+
+    for (i = 0; i <= k; i++) {
+        c[i] = 0;
+    }
+
+    for (j = 0; j < n; j++) {
+        c[vetor[j]]++;
+    }
+
+    for (i = 1; i <= k; i++) {
+        c[i] += c[i - 1];
+    }
+
+    for (j = n - 1; j >= 0; j--) {
+        b[--c[vetor[j]]] = vetor[j];
+    }
+
+    for (i = 0; i < n; i++) {
+        vetor[i] = b[i];
+    }
+}
+
+void radixSort(int vetor[], int n, int d){
+    int i;
+    int max = vetor[0];
+    for (i = 1; i < n; i++) {
+        if (vetor[i] > max) {
+            max = vetor[i];
+        }
+    }
+    for (i=1; i<=d; i++){
+        countingSort(vetor, n, max);
+    }
+}
+
+void inserir(int bucket[], int valor, int* indice) {
+    bucket[*indice] = valor;
+    (*indice)++;
+}
+
+void concatenar(int A[], int buckets[][TAMANHO], int tam_bucket) {
+    int idx = 0;
+    int i, j;
+    for (i = 0; i < 9; i++) {
+        for (j = 0; j < tam_bucket; j++) {
+            if (buckets[i][j] != -1) {
+                A[idx++] = buckets[i][j];
+            }
+        }
+    }
+}
+
+void bucketSort(int vetor[], int n) {
+    int buckets[9][TAMANHO];
+    int tam_bucket = 0;
+    int i, j, indice;
+
+    for (i = 0; i<9; i++) {
+        for (j = 0; j < TAMANHO; j++) {
+            buckets[i][j] = -1;
+        }
+    }
+
+    for (i = 0; i < n; i++) {
+        indice = vetor[i] / (9 + 1);
+        inserir(buckets[indice], vetor[i], &tam_bucket);
+    }
+
+    for (i = 0; i < 9; i++) {
+        insertionSort(buckets[i]);
+    }
+    concatenar(vetor, buckets, n);
+}
+
 int main(){
-    int vetor[TAMANHO] = {7,3,9,5,4,8,1,2,6,0};
+    int vetor[TAMANHO];
     int i;
 
-    for(i = 0; i < TAMANHO; i++) {
-        printf("%d ", vetor[i]);
+    srand(time(NULL));
+
+    for (i=0; i<TAMANHO; i++) {
+        vetor[i] = rand() % RANGE_NUMEROS;
+        printf("%.3d ", vetor[i]);
     }
-    printf("\n\n");
+    printf("\n");
 
     int op;
-    printf("Selecione uma opção:\n 1- Bubble\n 2- Selection\n 3- Insertion\n 4- Merge\n 5- Quick\n");
+    printf("Selecione uma opção:\n 1- Bubble\n 2- Selection\n 3- Insertion\n 4- Merge\n 5- Quick\n 6- Counting\n 7- Radix\n 8- Bucket\n");
     scanf("%d", &op);
     switch (op) {
     case 1:
@@ -145,6 +227,15 @@ int main(){
         break;
     case 5:
         quickSort(vetor, 0, TAMANHO-1);
+        break;
+    case 6:
+        countingSort(vetor, TAMANHO, 100);
+        break;
+    case 7:
+        radixSort(vetor, TAMANHO, 3);
+        break;
+    case 8:
+        bucketSort(vetor, TAMANHO);
         break;
     default:
         break;
