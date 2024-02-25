@@ -1,0 +1,19 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-o",
+                "output",
+                "Atividades praticas/Atividade 2/solucao.c"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
