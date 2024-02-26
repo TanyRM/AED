@@ -8,7 +8,7 @@
             "args": [
                 "-o",
                 "output",
-                "Atividades praticas/Atividade 2/solucao.c"
+                "Atividades praticas/Atividade 2/*.c"
             ],
             "group": {
                 "kind": "build",
