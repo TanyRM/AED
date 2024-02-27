@@ -1,3 +1,18 @@
+/* Caso de teste:
+    entrada
+    4
+    101 20 15 30 -1
+    102 25 30 20 -1
+    103 30 25 25 -1
+    104 20 25 20 -1
+
+    saida
+    104
+    101
+    102
+    103
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
