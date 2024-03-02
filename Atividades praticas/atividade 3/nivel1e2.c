@@ -67,6 +67,7 @@ int verTopo(Pilha *p){
         return p->elementos[p->n];
     } else {
         printf("A pilha está vazia!\n");
+        return -1;
     }
 }
 
